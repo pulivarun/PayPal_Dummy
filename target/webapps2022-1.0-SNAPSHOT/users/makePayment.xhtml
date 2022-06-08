@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Make/ Request A Payment</title>
+    </h:head>
+    <h:body>
+        <h:panelGrid id = "nav" columns = "7" border = "1" cellpadding = "10" cellspacing = "1">
+            <h:link value="Index" outcome="index"/>
+            <h:link value="Account Overview" outcome="user"/>
+            <h:link value="Make/Request a Payment" outcome="makePayment"/>
+            <h:link value="Approve a Payment" outcome="approvePayment"/>
+            <h:link value="History" outcome="paymentHistory"/>
+            <h:link value="Check Exchange Rate" outcome="checkExchangeRate"/>
+            <h:form>
+                <h:commandButton value="Logout" action="#{loginBean.logout()}"/>
+            </h:form>
+        </h:panelGrid>
+        <br/>
+        
+        <h1>Make/ Request A Payment</h1>
+        <h:form id = "paymentForm">
+            Fill in the details and press the Pay button, hover on input for tips.
+            <br/>
+            
+            <h:panelGrid id = "paymentFormGrid" columns = "3" border = "0" cellpadding = "8" cellspacing = "1">
+                
+                <h:outputLabel for="senderUsername" value="Your user name:"/>
+                <h:outputLabel for="senderUsername" value="#{request.getRemoteUser()}"/>
+                <h:message style="color:red" for="payeeUsername" id = "senderUsername_error" />
+                
+                <h:outputLabel for="payeeUsername" value="*Payee/Payer user name:"/>
+                <h:inputText id ="payeeUsername" value="#{makePaymentBean.receiveUsername}" title="Enter payee user name (Between 5-15 characters)" required="true" requiredMessage="Mandatory Field">
+                    <f:validateLength minimum="5" maximum="15" />
+                </h:inputText>
+                <h:message style="color:red" for="payeeUsername" id = "payeeUsername_error" />
+            
+                <h:outputLabel for="paymentCurrency" value="*Payment Currency"/>
+                <h:selectOneMenu id = "paymentCurrency" value="#{makePaymentBean.sendCurrency}" title="Choose the Payment Currency (In accrodance to the amount you are paying)" required="true" requiredMessage="Mandatory Field">
+                    <f:selectItem itemValue="GBP" itemLabel="GBP - Pound Sterling" />
+                    <f:selectItem itemValue="USD" itemLabel="USD - United States dollar" />
+                    <f:selectItem itemValue="EUR" itemLabel="EUR - Euro" />
+                </h:selectOneMenu>
+                <h:message style="color:red" for="paymentCurrency"/>
+
+                <h:outputLabel for="paymentAmount" value="*Payment Amount: "/>
+                <h:inputText id ="paymentAmount" value="#{makePaymentBean.sendCash}" title="Enter Payment Amount (Positive number only)" required="true" label="paymentAmount" requiredMessage="Mandatory Field">
+                    <f:validateLongRange for="paymentAmount" minimum="1" />
+                </h:inputText>
+                <h:message style="color:red" for="paymentAmount"/>
+
+                <h:outputLabel for="paymentApprove" value="*I confirm the above information is correct."/>
+                <h:selectBooleanCheckbox id ="paymentApprove" value="#{makePaymentBean.approved}" title="Check to approve" label="paymentApprove" required="true" requiredMessage="Mandatory Field"/>
+                <h:message style="color:red" for="paymentApprove"/>
+            </h:panelGrid>
+            
+            <br/>
+            <h:panelGrid id = "paymentbuttonGrid" columns = "2" border = "0" cellpadding = "8" cellspacing = "1">
+                <h:commandButton id="pay" type="submit" value="Pay" action="#{makePaymentBean.toPay}" title="Pay"/>
+                <h:commandButton id="request" type="submit" value="Request" action="#{makePaymentBean.toRequest}" title="Request"/>
+            </h:panelGrid>
+            
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Today's exchange rate</title>
+    </h:head>
+    <h:body>
+        <h:panelGrid id = "nav" columns = "7" border = "1" cellpadding = "10" cellspacing = "1">
+            <h:link value="Index" outcome="index"/>
+            <h:link value="Account Overview" outcome="user"/>
+            <h:link value="Make/Request a Payment" outcome="makePayment"/>
+            <h:link value="Approve a Payment" outcome="approvePayment"/>
+            <h:link value="History" outcome="paymentHistory"/>
+            <h:link value="Check Exchange Rate" outcome="checkExchangeRate"/>
+            <h:form>
+                <h:commandButton value="Logout" action="#{loginBean.logout()}"/>
+            </h:form>
+        </h:panelGrid>
+        <br/>
+        
+        <h1>Today's exchange rate:</h1>
+        <h:outputLabel value="Your currency: #{checkExchangeRateBean.getCurrency()}"/>
+        <br/><br/>
+        <h:panelGrid id = "exRate" columns = "5"  cellpadding = "10" cellspacing = "1">
+            <h:outputLabel value="1"/>
+            <h:outputLabel value="#{checkExchangeRateBean.getCurrency()}"/>
+            <h:outputLabel value="="/>
+            <h:outputLabel value="#{checkExchangeRateBean.getGBP()}"/>
+            <h:outputLabel value="GBP"/>
+            <h:outputLabel value="1"/>
+            <h:outputLabel value="#{checkExchangeRateBean.getCurrency()}"/>
+            <h:outputLabel value="="/>
+            <h:outputLabel value="#{checkExchangeRateBean.getUSD()}"/>
+            <h:outputLabel value="USD"/>
+            <h:outputLabel value="1"/>
+            <h:outputLabel value="#{checkExchangeRateBean.getCurrency()}"/>
+            <h:outputLabel value="="/>
+            <h:outputLabel value="#{checkExchangeRateBean.getEUR()}"/>
+            <h:outputLabel value="EUR"/>
+        </h:panelGrid>
+    </h:body>
+</html>
+

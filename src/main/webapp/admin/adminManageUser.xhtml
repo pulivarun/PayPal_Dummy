@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+            <h:link value="Index" outcome="index"/><br/><br/>
+            <h:link value="Admin Overview" outcome="admin"/><br/><br/>
+            <h:link value="Manage Users" outcome="adminManageUser"/><br/><br/>
+            <h:link value="Admin Registraion" outcome="adminRegistration"/><br/><br/>
+            <h:form>
+                <h:commandButton value="Logout" action="#{loginBean.logout()}"/>
+            </h:form>
+        
+        <br/>
+        <h2>Users Management</h2>
+        
+        <h:form id = "usersForm">
+            Fill in the details and press the Pay button.
+            <br/>
+            
+                
+                <h:outputLabel for="senderUsername" value="user name:"/><br/>
+                <h:outputLabel for="senderUsername" value="#{request.getRemoteUser()}"/>
+                <h:message style="color:red" for="payeeUsername" id = "senderUsername_error" />
+                
+                <h:outputLabel for="userID" value="*User ID:"/>
+                <h:outputText value="You do not have pending transaction!" rendered="#{empty adminBean.getUsersIDList()}" />
+                <h:selectOneMenu id ="userID" value="userID" rendered="#{not empty adminBean.getUsersIDList()}" title="Select a payment ID that you wish to proceed" required="true" requiredMessage="Mandatory Field">
+   			<f:selectItems id ="userIDselect" value="#{adminBean.getUsersIDList()}" />
+   		</h:selectOneMenu>
+                <h:message style="color:red" for="userID" id = "userID_error" />
+            
+                <h:outputLabel for="deleteApprove" value="*I confirm I wish to delete user."/>
+                <h:selectBooleanCheckbox id ="deleteApprove" value="#{adminBean.toConfirm}" title="Check to approve" label="deleteApprove" required="true" requiredMessage="Mandatory Field"/>
+                <h:message style="color:red" for="deleteApprove"/>
+           
+            
+            <br/>
+            <h:panelGrid id = "paymentbuttonGrid" columns = "2" border = "0" cellpadding = "8" cellspacing = "1">
+                <h:commandButton id="delete" type="submit" value="Delete" action="#{adminBean.deleteUser()}" title="Delete"/>
+            </h:panelGrid>
+            
+        </h:form>
+        
+        <h2>Users list:</h2>
+        <h:outputText value="Something is wrong, there are no users!" rendered="#{empty adminBean.getUsersList()}" />
+
+        <h:dataTable value="#{adminBean.getUsersList()}" rendered="#{not empty adminBean.getUsersList()}" var="systemUser">
+            <h:column>    				
+                <f:facet name="header">User ID</f:facet>    				
+                    #{systemUser.id}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">User Username</f:facet>    				
+                    #{systemUser.username}
+            </h:column>
+            <h:column>
+                <f:facet name="header">First Name</f:facet>
+                    #{systemUser.name}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Last Name</f:facet>
+                    #{systemUser.surname}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Currency</f:facet>    				
+                    #{systemUser.currency}
+            </h:column>
+            <h:column>    				
+                <f:facet name="header">Balance</f:facet>    				
+                    #{systemUser.balance}
+            </h:column>
+        </h:dataTable>
+    </h:body>
+</html>
+

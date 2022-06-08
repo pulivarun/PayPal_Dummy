@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>user registration</title>
+    </h:head>
+    <h:body>
+            <h:link value="Index" outcome="index"/><br/><br/>
+            <h:link value="Admin Overview" outcome="admin"/><br/><br/>
+            <h:link value="Manage Users" outcome="adminManageUser"/><br/><br/>
+            <h:link value="Admin Registraion" outcome="adminRegistration"/><br/><br/>
+            <h:form>
+                <h:commandButton value="Logout" action="#{loginBean.logout()}"/>
+            </h:form>
+        <br/>
+        <h2>New user registration</h2>
+        <h:form id = "registerForm">
+            Fill in the details and press the register button.
+            <br/>
+            
+            <h:panelGrid id = "loginFormGrid" columns = "3" border = "0" cellpadding = "8" cellspacing = "1">
+                
+                <h:outputLabel for="username" value="*User name:"/>
+                <h:inputText id ="username" value="#{adminBean.username}" title="Enter user name (Between 5-15 characters)" required="true" requiredMessage="Mandatory Field">
+                    <f:validateLength minimum="5" maximum="15" />
+                </h:inputText>
+                <h:message style="color:red" for="username" id = "username_error" />
+            
+                <h:outputLabel for="userPassword" value="*Password:"/>
+                <h:inputSecret id ="userPassword" value="#{adminBean.userpassword}" title="Enter password (Between 5-20 characters)" label="password" required="true" requiredMessage="Mandatory Field">
+                    <f:validateLength minimum="5" maximum="20" />
+                </h:inputSecret>
+                <h:message style="color:red" for="userPassword"/>
+
+                <h:outputLabel for="name" value="*First Name: "/>
+                <h:inputText id ="name" value="#{adminBean.name}" title="Enter name" required="true" label="name" requiredMessage="Mandatory Field"/>
+                <h:message style="color:red" for="name"/>
+
+                <h:outputLabel for="surname" value="*Last Name"/>
+                <h:inputText id ="surname" value="#{adminBean.surname}" title="Enter surname" label="surname" required="true" requiredMessage="Mandatory Field"/>
+                <h:message style="color:red" for="surname"/>
+            
+                <h:outputLabel for="currency" value="*Currency"/>
+                <h:selectOneMenu id ="currency" value="#{adminBean.currency}" required="true" requiredMessage="Mandatory Field">
+                    <f:selectItem itemValue="GBP" itemLabel="GBP - Pound Sterling" />
+                    <f:selectItem itemValue="USD" itemLabel="USD - United States dollar" />
+                    <f:selectItem itemValue="EUR" itemLabel="EUR - Euro" />
+                </h:selectOneMenu>
+                <h:message style="color:red" for="currency"/>
+                
+                <h:outputLabel for="balance" value="*Balance"/>
+                <h:inputText id ="balance" value="#{adminBean.balance}" title="Enter Balance" label="balance" required="true" requiredMessage="Mandatory Field"/>
+                <h:message style="color:red" for="balance"/>
+                
+                <h:outputLabel for="userGroup" value="*User Group"/>
+                <h:selectOneMenu id ="userGroup" value="#{adminBean.userGroup}" required="true" requiredMessage="Mandatory Field">
+                    <f:selectItem itemValue="users" itemLabel="users - Regular User" />
+                    <f:selectItem itemValue="admin" itemLabel="admin - Administration" />
+                </h:selectOneMenu>
+                <h:message style="color:red" for="userGroup"/>
+            </h:panelGrid>
+            
+            <br/>
+            <h:commandButton id="register" type="submit" value="Register" action="#{adminBean.register}" title="Register User"/>
+            <h:commandButton id="reset" type="reset" value="Reset Form" title="Reset Form"/>
+            
+            
+        </h:form>
+    </h:body>
+</html>
+

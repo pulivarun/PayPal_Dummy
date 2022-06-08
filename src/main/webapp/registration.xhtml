@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>User Registration</title>
+    </h:head>
+    <h:body>
+        <h:panelGrid id = "nav" columns = "3" border = "1" cellpadding = "10" cellspacing = "1">
+            <h:link value="Index" outcome="index"/>
+            <h:link value="User Page" outcome="user"/>
+            <h:link value="Admin Page" outcome="admin"/>
+        </h:panelGrid>
+        <br/>
+        
+        <h:form id = "registerForm">
+            Fill in the details and press the register button, hover on input for tips.
+            <br/>
+            
+            <h:panelGrid id = "loginFormGrid" columns = "3" border = "0" cellpadding = "8" cellspacing = "1">
+                
+                <h:outputLabel for="username" value="*User name:"/>
+                <h:inputText id ="username" value="#{registrationBean.username}" title="Enter user name (Between 5-15 characters)" required="true" requiredMessage="Mandatory Field">
+                    <f:validateLength minimum="5" maximum="15" />
+                </h:inputText>
+                <h:message style="color:red" for="username" id = "username_error" />
+            
+                <h:outputLabel for="userPassword" value="*Password:"/>
+                <h:inputSecret id ="userPassword" value="#{registrationBean.userpassword}" title="Enter password (Between 5-20 characters)" label="password" required="true" requiredMessage="Mandatory Field">
+                    <f:validateLength minimum="5" maximum="20" />
+                </h:inputSecret> 
+                <h:message style="color:red" for="userPassword"/>
+
+                <h:outputLabel for="name" value="*First Name: "/>
+                <h:inputText id ="name" value="#{registrationBean.name}" title="Enter name" required="true" label="name" requiredMessage="Mandatory Field"/>
+                <h:message style="color:red" for="name"/>
+
+                <h:outputLabel for="surname" value="*Last Name"/>
+                <h:inputText id ="surname" value="#{registrationBean.surname}" title="Enter surname" label="surname" required="true" requiredMessage="Mandatory Field"/>
+                <h:message style="color:red" for="surname"/>
+            
+                <h:outputLabel for="currency" value="*Currency"/>
+                <h:selectOneMenu id ="currency" value="#{registrationBean.currency}" required="true" requiredMessage="Mandatory Field">
+                    <f:selectItem itemValue="GBP"/>
+                    <f:selectItem itemValue="USD" />
+                    <f:selectItem itemValue="EUR" />
+                </h:selectOneMenu>
+                <h:message style="color:red" for="currency"/>
+            </h:panelGrid>
+            
+            <br/>
+            <h:commandButton id="register" type="submit" value="Register" action="#{registrationBean.register}" title="Register User"/>
+            <h:commandButton id="reset" type="reset" value="Reset Form" title="Reset Form"/>
+            
+            
+        </h:form>
+    </h:body>
+</html>
+
